@@ -18,22 +18,49 @@ import java.io.IOException;
 
 public class day1{
     public static void main(String[] args){
-        int finalSum = 0;
-        int firstNum = 0;
-        int lastNum = 0;
+        //String filePath = "./2023/day1/day1input.txt";
 
-        String filePath = "./2023/day1/day1input.txt";
+        // testing file with only 10 lines
+        String filePath = "./2023/day1/day1input-copy.txt";
 
         // look into Buffered Reader
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line = "";
+
+            // while we are not at the end of the file, read off the line in the file
             while((line = reader.readLine()) != null){
-                System.out.println(line);
+                // calling a function to process each line of the file and to declutter the mess
+                processLine(line);
             }
         } catch(IOException e){
             System.out.println("error: " + e);
         }
+    }
 
-        System.out.println("");
+    // this function will process each line and will determine which numbers are what 
+    private static void processLine(String fileLine){
+        int finalNum = 0;
+        String firstNum = "0";
+        String lastNum = "0";
+        String newNum = "";
+        int numStringToInt = 0;
+        int endOfLine = fileLine.length();
+
+        for(int i = 0; i < fileLine.length(); i++){
+            char c = fileLine.charAt(i);
+            
+            if(Character.isDigit(c) && firstNum == "0"){
+                firstNum = Character.toString(c);
+            }
+            else if(Character.isDigit(c) && firstNum != "0"){
+                lastNum = Character.toString(c);
+            }
+            else if(i == endOfLine){
+                newNum = firstNum + lastNum;
+                numStringToInt = Integer.parseInt(newNum);
+
+                finalNum = finalNum + numStringToInt;
+            }
+        }
     }
 }
