@@ -26,11 +26,11 @@ public class day1{
         // look into Buffered Reader
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line = "";
-
+            int sum = 0;
             // while we are not at the end of the file, read off the line in the file
             while((line = reader.readLine()) != null){
                 // calling a function to process each line of the file and to declutter the mess
-                processLine(line);
+                processLine(line, sum);
             }
         } catch(IOException e){
             System.out.println("error: " + e);
@@ -38,29 +38,37 @@ public class day1{
     }
 
     // this function will process each line and will determine which numbers are what 
-    private static void processLine(String fileLine){
-        int finalNum = 0;
+    private static void processLine(String fileLine, int finalSum){
         String firstNum = "0";
         String lastNum = "0";
         String newNum = "";
         int numStringToInt = 0;
-        int endOfLine = fileLine.length();
+        int endOfLine = fileLine.length() - 1;
 
         for(int i = 0; i < fileLine.length(); i++){
             char c = fileLine.charAt(i);
-            
+
+            // this if statement works
             if(Character.isDigit(c) && firstNum == "0"){
                 firstNum = Character.toString(c);
             }
+            // this if statement works
             else if(Character.isDigit(c) && firstNum != "0"){
                 lastNum = Character.toString(c);
             }
             else if(i == endOfLine){
-                newNum = firstNum + lastNum;
-                numStringToInt = Integer.parseInt(newNum);
+                if(lastNum == "0"){
+                    lastNum = firstNum;
+                }
+                else{
+                    newNum = firstNum + lastNum;
+                    System.out.println(newNum);
+                    numStringToInt = Integer.parseInt(newNum);
 
-                finalNum = finalNum + numStringToInt;
+                    finalSum = finalSum + numStringToInt;
+                }
             }
         }
+        //System.out.println(finalSum);
     }
 }
