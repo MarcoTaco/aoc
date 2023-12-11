@@ -1,36 +1,23 @@
-/*
- * THINKING PROCESS: open and read the file line by line, we are going to always want to count
- * the first number in that line and store it. we then want to keep going through the line and change
- * the value of the number after the first, once we stop, we know we reach to the end. if there is no
- * second number, then the first number is now the second number. we'll want to return a sum of the
- * whole text file. 
- * 
- * CONCERNS:
- * - how do i merge the two numbers and not add them lol. i imagine i can change both numbers
- *      into a string and then concatentate(?) or add them together then turn the string 
- *      back into an integer.
- * - tba im sure i'll run into other stuff like syntax or whatever.
-*/
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class day1{
+    // variable for final answer
+    private static int finalSum = 0;
     public static void main(String[] args){
-        //String filePath = "./2023/day1/day1input.txt";
+        String filePath = "./2023/day1/day1input.txt";
 
         // testing file with only 10 lines
-        String filePath = "./2023/day1/day1input-copy.txt";
+        //String filePath = "./2023/day1/day1input-copy.txt";
 
-        // look into Buffered Reader
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line = "";
-            int sum = 0;
+
             // while we are not at the end of the file, read off the line in the file
             while((line = reader.readLine()) != null){
                 // calling a function to process each line of the file and to declutter the mess
-                processLine(line, sum);
+                processLine(line);
             }
         } catch(IOException e){
             System.out.println("error: " + e);
@@ -38,37 +25,58 @@ public class day1{
     }
 
     // this function will process each line and will determine which numbers are what 
-    private static void processLine(String fileLine, int finalSum){
+    private static void processLine(String fileLine){
         String firstNum = "0";
         String lastNum = "0";
         String newNum = "";
         int numStringToInt = 0;
         int endOfLine = fileLine.length() - 1;
 
+        // looping through the line 
         for(int i = 0; i < fileLine.length(); i++){
-            char c = fileLine.charAt(i);
+            char letter = fileLine.charAt(i);
 
-            // this if statement works
-            if(Character.isDigit(c) && firstNum == "0"){
-                firstNum = Character.toString(c);
+            // if letter is a digit and the firstNum is still original value, then change value
+            // of firstNum
+            if(Character.isDigit(letter) && firstNum == "0"){
+                firstNum = Character.toString(letter);
             }
-            // this if statement works
-            else if(Character.isDigit(c) && firstNum != "0"){
-                lastNum = Character.toString(c);
+
+            // if letter is a digit and we already found the firstNum, AND we are not at the end 
+            // of the line, then change value of the lastNum
+            // we are checking that we are not end of the line because it skips the logic/formula of
+            // adding the nums together and adding it all up 
+            else if(Character.isDigit(letter) && firstNum != "0" && i != endOfLine){
+                lastNum = Character.toString(letter);
             }
+
+            // if we reach the end of this line, we know to start adding nums together
             else if(i == endOfLine){
-                if(lastNum == "0"){
+                // if we havent gotten a second num, then make it equal firstNum
+                if(lastNum == "0" && !Character.isDigit(letter)){
                     lastNum = firstNum;
+                    newNum = firstNum + lastNum;
+                    numStringToInt = Integer.parseInt(newNum);
+                    finalSum += numStringToInt;
+
                 }
+
+                // if last letter is a num, and we already found the first num, then do this
+                else if(Character.isDigit(letter) && firstNum != "0"){
+                    lastNum = Character.toString(letter);
+                    newNum = firstNum + lastNum;
+                    numStringToInt = Integer.parseInt(newNum);
+                    finalSum += numStringToInt;
+                }
+
+                // if both lastNum and firstNum are found then do this
                 else{
                     newNum = firstNum + lastNum;
-                    System.out.println(newNum);
                     numStringToInt = Integer.parseInt(newNum);
-
-                    finalSum = finalSum + numStringToInt;
+                    finalSum += numStringToInt;
                 }
             }
         }
-        //System.out.println(finalSum);
+        System.out.println(finalSum);
     }
 }
