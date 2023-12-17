@@ -53,6 +53,7 @@ public class day1{
 
             if(Character.isDigit(letter) && firstNum == "" && i != endOfLine){
                 firstNum = Character.toString(letter);
+                txtNum = "";
             }
             else if(numTxt.containsKey(txtNum) && firstNum == "" && i != endOfLine){
                 firstNum = numTxt.get(txtNum);
@@ -61,6 +62,7 @@ public class day1{
             }
             else if(Character.isDigit(letter) && firstNum != "" && i != endOfLine){
                 lastNum = Character.toString(letter);
+                txtNum = "";
             }
             else if(numTxt.containsKey(txtNum) && firstNum != "" && i != endOfLine){
                 lastNum = numTxt.get(txtNum);
@@ -91,8 +93,8 @@ public class day1{
 
                 newNum = firstNum + lastNum;
                 System.out.println(newNum);
-                numStringToInt = Integer.parseInt(newNum);
-                finalSum = finalSum + numStringToInt;
+                //numStringToInt = Integer.parseInt(newNum);
+                //finalSum = finalSum + numStringToInt;
             }
         }
         //System.out.println(finalSum);
