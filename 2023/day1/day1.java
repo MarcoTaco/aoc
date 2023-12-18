@@ -3,7 +3,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class day1{
     // variable for final answer
@@ -25,7 +27,6 @@ public class day1{
         numText.put("eight", "8");
         numText.put("nine", "9");
 
-        
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line = "";
 
@@ -92,7 +93,8 @@ public class day1{
                 }
 
                 newNum = firstNum + lastNum;
-                System.out.println(newNum);
+                System.out.println("number: " + newNum);
+                System.out.println("text: " + txtNum);
                 //numStringToInt = Integer.parseInt(newNum);
                 //finalSum = finalSum + numStringToInt;
             }
