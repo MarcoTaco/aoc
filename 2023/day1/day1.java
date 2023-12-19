@@ -37,7 +37,7 @@ public class day1{
         } catch(IOException e){
             System.out.println("error: " + e);
         }
-        System.out.println(finalSum);
+        //System.out.println(finalSum);
     }
 
     private static void processLine(String fileLine, HashMap<String, String> numTxt){
@@ -48,57 +48,101 @@ public class day1{
         int numStringToInt = 0;
         int endOfLine = fileLine.length() - 1;
 
+        /*
+         * double loop. one looping through the line, another comparing each char (up to 5).
+         * put each character into a string for a max of 5. keep comparing the string to the map to
+         * find matching numbers. 
+         * if we hit a digit, then just reset the loop
+         * 
+         * CONCERNS: how to know we don't hit the end out of index.
+         */
         for(int i = 0; i < fileLine.length(); i++){
             char letter = fileLine.charAt(i);
             txtNum += Character.toString(letter);
+            for(int j = i + 1; j < fileLine.length(); j++){
+                char tmpLetter = fileLine.charAt(j);
+                txtNum += Character.toString(tmpLetter);
 
-            if(Character.isDigit(letter) && firstNum == "" && i != endOfLine){
-                firstNum = Character.toString(letter);
-                txtNum = "";
-            }
-            else if(numTxt.containsKey(txtNum) && firstNum == "" && i != endOfLine){
-                firstNum = numTxt.get(txtNum);
-                txtNum = "";
-                i--;
-            }
-            else if(Character.isDigit(letter) && firstNum != "" && i != endOfLine){
-                lastNum = Character.toString(letter);
-                txtNum = "";
-            }
-            else if(numTxt.containsKey(txtNum) && firstNum != "" && i != endOfLine){
-                lastNum = numTxt.get(txtNum);
-                txtNum = "";
-                i--;
-            }
-            else if(i == endOfLine){
-                if(firstNum == "" && Character.isDigit(letter)){
-                    firstNum = Character.toString(letter);
-                    lastNum = firstNum;
-                }
-                else if(firstNum == "" & numTxt.containsKey(txtNum)){
+                System.out.println(txtNum);
+
+                if(txtNum.contains(txtNum)){
                     firstNum = numTxt.get(txtNum);
-                    lastNum = firstNum;
+                    if(firstNum != null){
+                        //System.out.println("s: " + firstNum);
+                        txtNum = "";
+                        break;
+                    }
                 }
-                else if(lastNum == "" && !Character.isDigit(letter)){
-                    lastNum = firstNum;
+                if(j > 5){
+                    txtNum = "";
+                    break;
                 }
-                else if(lastNum == "" && !numTxt.containsKey(txtNum)){
-                    lastNum = firstNum;
-                }
-                else if(Character.isDigit(letter) && firstNum != ""){
-                    lastNum = Character.toString(letter);
-                }
-                else if(numTxt.containsKey(txtNum) && firstNum != ""){
-                    lastNum = numTxt.get(txtNum);
-                }
-
-                newNum = firstNum + lastNum;
-                System.out.println("number: " + newNum);
-                System.out.println("text: " + txtNum);
+       
                 //numStringToInt = Integer.parseInt(newNum);
                 //finalSum = finalSum + numStringToInt;
             }
+            // if reach end of line, then check if first || last num are empty
+            // then just copy what i had before then adding it all together 
+
+
+
+
+
+
+
+
+
         }
+        // for(int i = 0; i < fileLine.length(); i++){
+        //     char letter = fileLine.charAt(i);
+        //     txtNum += Character.toString(letter);
+
+        //     if(Character.isDigit(letter) && firstNum == "" && i != endOfLine){
+        //         firstNum = Character.toString(letter);
+        //         txtNum = "";
+        //     }
+        //     else if(numTxt.containsKey(txtNum) && firstNum == "" && i != endOfLine){
+        //         firstNum = numTxt.get(txtNum);
+        //         txtNum = "";
+        //         i--;
+        //     }
+        //     else if(Character.isDigit(letter) && firstNum != "" && i != endOfLine){
+        //         lastNum = Character.toString(letter);
+        //         txtNum = "";
+        //     }
+        //     else if(numTxt.containsKey(txtNum) && firstNum != "" && i != endOfLine){
+        //         lastNum = numTxt.get(txtNum);
+        //         txtNum = "";
+        //         i--;
+        //     }
+        //     else if(i == endOfLine){
+        //         if(firstNum == "" && Character.isDigit(letter)){
+        //             firstNum = Character.toString(letter);
+        //             lastNum = firstNum;
+        //         }
+        //         else if(firstNum == "" & numTxt.containsKey(txtNum)){
+        //             firstNum = numTxt.get(txtNum);
+        //             lastNum = firstNum;
+        //         }
+        //         else if(lastNum == "" && !Character.isDigit(letter)){
+        //             lastNum = firstNum;
+        //         }
+        //         else if(lastNum == "" && !numTxt.containsKey(txtNum)){
+        //             lastNum = firstNum;
+        //         }
+        //         else if(Character.isDigit(letter) && firstNum != ""){
+        //             lastNum = Character.toString(letter);
+        //         }
+        //         else if(numTxt.containsKey(txtNum) && firstNum != ""){
+        //             lastNum = numTxt.get(txtNum);
+        //         }
+
+        //         newNum = firstNum + lastNum;
+        //         System.out.println(newNum);
+        //         //numStringToInt = Integer.parseInt(newNum);
+        //         //finalSum = finalSum + numStringToInt;
+        //     }
+        // }
         //System.out.println(finalSum);
     }
 }
