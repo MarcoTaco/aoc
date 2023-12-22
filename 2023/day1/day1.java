@@ -9,10 +9,10 @@ public class day1{
     // variable for final answer
     private static int finalSum = 0;
     public static void main(String[] args){
-        String filePath = "./2023/day1/day1input.txt";
+        // String filePath = "./2023/day1/day1input.txt";
 
         // testing file
-        // String filePath = "./2023/day1/day1input-copy.txt";
+        String filePath = "./2023/day1/day1input-copy.txt";
 
         HashMap<String, String> numText = new HashMap<String, String>();
         numText.put("one", "1");
@@ -35,7 +35,7 @@ public class day1{
         } catch(IOException e){
             System.out.println("error: " + e);
         }
-        System.out.println(finalSum);
+        // System.out.println(finalSum);
     }
 
     private static void processLine(String fileLine, HashMap<String, String> numTxt){
@@ -55,14 +55,16 @@ public class day1{
 
             if(Character.isDigit(letter) && firstNum == "" && i != endOfLine){
                 firstNum = Character.toString(letter);
+                txtNum = "";
                 check = true;
             }
             else if(Character.isDigit(letter) && firstNum != "" && i != endOfLine){
                 lastNum = Character.toString(letter);
+                txtNum = "";
                 check = true;
             }
             else if(i == endOfLine){
-                if(firstNum == "" && Character.isDigit(letter)){
+                if(firstNum == "" && lastNum == "" && Character.isDigit(letter)){
                     firstNum = Character.toString(letter);
                     lastNum = firstNum;
                 }
@@ -72,9 +74,9 @@ public class day1{
                 else if(firstNum != "" && lastNum != "" && Character.isDigit(letter)){
                     lastNum = Character.toString(letter);
                 }
-
                 newNum = firstNum + lastNum;
                 numStringToInt = Integer.parseInt(newNum);
+                System.out.println(numStringToInt);
                 finalSum = finalSum + numStringToInt;
             }
             for(int j = i + 1; j < fileLine.length(); j++){
@@ -89,23 +91,20 @@ public class day1{
 
                 if(firstNum == "" && numTxt.containsKey(txtNum)){
                     firstNum = numTxt.get(txtNum);
-                    //System.out.println("first: " + firstNum);
                     txtNum = "";
                     break;
                 }
                 else if(firstNum != "" && numTxt.containsKey(txtNum)){
                     lastNum = numTxt.get(txtNum);
-                    //System.out.println("last: " + lastNum);
                     txtNum = "";
                     break;
                 }
                 
-                if(count > 3){
+                if(count > 3 || j == endOfLine){
                     txtNum = "";
                     break;
                 }
             }
-            //test
         }
     }
 }
