@@ -19,6 +19,8 @@ public class day2 {
         }catch(IOException e){
             System.out.println("error: " + e);
         }
+        // System.out.println(finalAnswer);
+
     }
 
     public static void processLine(String fileLine){
@@ -26,16 +28,35 @@ public class day2 {
         int redCount = 0;
         int blueCount = 0;
         int greenCount = 0;
+        int red = 12;
+        int green = 13;
+        int blue = 14;
+        String text = "";
 
         // splitting everything into two sections. splitting in between the colon
         String[] sections = fileLine.split(":");
 
-        // sections[0] is everything before the colon, and only grabbing the id number
+        // sections[0] is everything before the colon, and only grabbing the id number. then making it into int
         String numBefore = sections[0].replaceAll("[^0-9]", "");
 
-        // sections[1] is everything after the colon
-        String numAfter = sections[1];
+        id = Integer.parseInt(numBefore);
 
+        // sections[1] is everything after the colon
+        String numsAfter = sections[1];
+
+        String[] numbers = numsAfter.split("\n"); 
+        
+        // grabbing each game's stats 
+        for(int i = 0; i < numbers.length; i++){
+            String game = numbers[i];
+            
+            }
+        }
+        
+        // if red count > red asked || blue count > blue asked || green count > green asked
+        // make id = 0 so we can add nothing to final id 
+
+        // finalAnswer += id
         
     }
 }
