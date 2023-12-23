@@ -1,5 +1,3 @@
-//part 2. add each character to a string until we hit a whole word
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
