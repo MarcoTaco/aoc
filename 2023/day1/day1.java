@@ -74,7 +74,6 @@ public class day1{
                 }
                 newNum = firstNum + lastNum;
                 numStringToInt = Integer.parseInt(newNum);
-                System.out.println(numStringToInt);
                 finalSum = finalSum + numStringToInt;
             }
             for(int j = i + 1; j < fileLine.length(); j++){
