@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class day2 {
     public static int finalAnswer = 0;
+    public static int colorAns = 0;
     public static void main(String[] args){
         String file = "./2023/day2/day2input.txt";
 
@@ -39,6 +40,9 @@ public class day2 {
         String[] game = numsAfter.split("\n");
         String gameNums = game[0];
         boolean check = true;
+        int redMax = 0;
+        int blueMax = 0;
+        int greenMax = 0;  
 
         String[] gamePulls = gameNums.split(";");
 
@@ -55,23 +59,36 @@ public class day2 {
                 int colorNum = Integer.parseInt(colorNums);
                 String color = beforeSemi[2];    
 
-                if(colorNum > 12 && color.contains("red")){
-                    id = 0;
-                    check = false;
-                    break;
+                if(color.contains("red") && redMax < colorNum){
+                    redMax = colorNum;
                 }
-                else if(colorNum > 13 && color.contains("green")){
-                    id = 0;
-                    check = false;
-                    break;
+                else if(color.contains("green") && greenMax < colorNum){
+                    greenMax = colorNum;
                 }
-                else if(colorNum > 14 && color.contains("blue")){
-                    id = 0;
-                    check = false;
-                    break;
+                else if(color.contains("blue") && blueMax < colorNum){
+                    blueMax = colorNum;
                 }
+                
+                // ** part 1 answer below **
+
+                // if(colorNum > 12 && color.contains("red")){
+                //     id = 0;
+                //     check = false;
+                //     break;
+                // }
+                // else if(colorNum > 13 && color.contains("green")){
+                //     id = 0;
+                //     check = false;
+                //     break;
+                // }
+                // else if(colorNum > 14 && color.contains("blue")){
+                //     id = 0;
+                //     check = false;
+                //     break;
+                // }
             }
         }
-        finalAnswer += id;
+        colorAns = redMax * blueMax * greenMax;
+        finalAnswer += colorAns;
     }
 }
