@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class day3 {
     public static int finalAnswer = 0;
-    public static ArrayList<Integer> finalNumbers = new ArrayList<Integer>();
-    public static ArrayList<Integer> specialCharIndex = new ArrayList<Integer>();
+    public static String[] stringLines = new String[10];
+    public static char[] symbols = {'!', '@', '#', '$', '%', '^', '&', '*', '/', '-', '+'};
 
     public static void main(String[] args){
         // length of each line is 100
@@ -19,54 +19,30 @@ public class day3 {
 
         // length of each line is 10
         String testFile = "./2023/day3/day3input-test.txt";
-
+        int testCount = 0;
         try(BufferedReader reader = new BufferedReader(new FileReader(testFile))){
             String line = "";
 
             while((line = reader.readLine()) != null){
-                processLine(line);
+                stringLines[testCount] = line;
+                stringLines[testCount] += ".";
+                testCount++;
             }
         }catch(IOException e){
             System.out.println("Error: " + e);
         }
-        
+        processLines(stringLines);
     }
 
-    public static void processLine(String line){
-        String tempString = "";
-        String stringNum = "";
-        int num = 0;
-        int endOfLine = line.length() - 1;
-        System.out.println(line.length());
-        for(int i = 0; i < line.length(); i++){
-            char letter = line.charAt(i);
-            tempString += letter;
-            
-            if(Character.isDigit(letter)){
-                if((i < 0 && line.charAt(i-1) != '.' && !Character.isDigit(letter)) 
-                    || (i != endOfLine && line.charAt(i+1) != '.' && !Character.isDigit(letter))){
-                        stringNum = "";
-                        break;
-                }
-                else{
-                    stringNum += Character.toString(letter);
-                }
-            }
-            else if(!Character.isDigit(letter) && stringNum != ""){
-                num = Integer.parseInt(stringNum);
-                finalNumbers.add(num);
-                stringNum = "";
+    public static void processLines(String[] stringLines){
+        int maxLength = 0;
+        char[][] charArray = new char[stringLines.length][maxLength];
+        for(int i = 0; i < stringLines.length; i++){
+            for(int j = 0; j < stringLines[i].length() - 1; j++){
+                charArray[i][j] = stringLines[i].charAt(j);
+                System.out.println(charArray[i][j]);
             }
         }
-        for(int j = 0; j < line.length(); j++){
-            char letter = line.charAt(j);
-
-            if(letter != '.' && !Character.isDigit(letter)){
-                specialCharIndex.add(j);
-            }
-        }
-        //System.out.println(specialCharIndex);        
-         System.out.println(finalNumbers);
     }
 }
 
