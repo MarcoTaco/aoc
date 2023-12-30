@@ -10,8 +10,10 @@ import java.util.ArrayList;
 
 public class day3 {
     public static int finalAnswer = 0;
+    public static ArrayList<Integer> numbersList = new ArrayList<Integer>();
     public static String[] stringLines = new String[10];
-    public static char[] symbols = {'!', '@', '#', '$', '%', '^', '&', '*', '/', '-', '+'};
+    //public static char[] symbols = {'!', '@', '#', '$', '%', '^', '&', '*', '/', '-', '+'};
+    public static ArrayList<Character> symbols = new ArrayList<Character>();
 
     public static void main(String[] args){
         // length of each line is 100
@@ -35,19 +37,45 @@ public class day3 {
     }
 
     public static void processLines(String[] stringLines){
-        int maxLength = 0;
-        char[][] charArray = new char[stringLines.length][maxLength];
+        String stringNum = "";
+        String tempStringUp = "";
+        String tempStringDown = "";
+        char letterB = 'a';
+        char letterF = 'a';
+        int number = 0;
+
+        symbols.add('!');
+        symbols.add('@');
+        symbols.add('#');
+        symbols.add('$');
+        symbols.add('%');
+        symbols.add('^');
+        symbols.add('&');
+        symbols.add('*');
+        symbols.add('/');
+        symbols.add('-');
+        symbols.add('+');
+
         for(int i = 0; i < stringLines.length; i++){
-            for(int j = 0; j < stringLines[i].length() - 1; j++){
-                charArray[i][j] = stringLines[i].charAt(j);
-                System.out.println(charArray[i][j]);
+            for(int j = 0; j < stringLines[i].length(); j++){
+                char letter = stringLines[i].charAt(j);
+                if(j >= stringLines[i].length()){
+                    letterF = stringLines[i].charAt(j + 1);
+                }
+                if(j > 0){
+                    letterB = stringLines[i].charAt(j - 1);
+                }
+                
+                
+                if(Character.isDigit(letter) && (symbols.contains(letterB) || symbols.contains(letterF))){
+                    stringNum += letter;
+                }
+                else if(!Character.isDigit(letter) && stringNum != ""){
+                    number = Integer.parseInt(stringNum);
+                    numbersList.add(number);
+                    stringNum = "";
+                }
             }
         }
     }
 }
-
-/*
- * array list of adding each index on which the number appears in the before row and after.
- * count each index and if there's a number then add it to the array list. then separate it to be single indexes
- * 
- */
