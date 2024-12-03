@@ -30,10 +30,10 @@ public class day1{
     static HashMap<Integer, Integer> rightMap = new HashMap<Integer, Integer>();
     
     public static void main(String[] args){
-        // String filePath = "./2024/day1/day1-input.txt";
+        String filePath = "./2024/day1/day1-input.txt";
 
         // testing file
-        String filePath = "./2024/day1/day1-input-test.txt";
+        // String filePath = "./2024/day1/day1-input-test.txt";
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line = "";
@@ -75,8 +75,8 @@ public class day1{
         for(int i = 0; i < leftList.size(); i++){
             int left = leftList.get(i);
             int right = rightList.get(i);
-            // this is stupid that i needed to get absolute value if it wasnt specified on the problem
-            // lol
+
+            // this is stupid that i needed to get absolute value if it wasnt specified on the problem lol
             int diffyWiffy = Math.abs(right - left);
 
             finalAnswer = finalAnswer + diffyWiffy;
@@ -89,7 +89,7 @@ public class day1{
     private static void addHashElements(List<Integer> leftList, List<Integer> rightList){
         // looping through both left and right list. then putting each value in a map and checking
         // if a value is already there
-        // getOrDefault is get the count, then add by 1, or assign a default value of 1.
+        // getOrDefault is get the count, then add by 1, or assign a default value of 0.
         for(Integer leftNum : leftList){
             leftMap.put(leftNum, leftMap.getOrDefault(leftNum, 0) + 1);
         }
@@ -103,12 +103,14 @@ public class day1{
             if(rightMap.containsKey(num)){
                 // here we check how many time it occurs on right map and multiply it by that many times
                 int repeatNums = rightMap.get(num);
+                int repeatLeftNums = leftMap.get(num);
+
                 for(int i = 0; i < repeatNums; i++){
-                    int sum = num * num;
+                    int sum = num * repeatLeftNums;
                     finalAnswer = finalAnswer + sum;
                 }
             }
         }
-        System.out.println(finalAnswer);
+        System.out.println("answer: " + finalAnswer);
     }
 }
