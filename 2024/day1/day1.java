@@ -1,13 +1,3 @@
-/*
- * part 1: im going to read through each line and add each line to an array of left and right
- *  after reading through all ids, i will call another function to handle the sorting and adding
- *  functionality then get a final answer.
- * 
- * part 2: add each number to a hashmap and count how many times it appears. then loop through each
- *  map and check if it exists in both, if it doesn't, then add 0 to the array. if it does, multiply.
- *  BUT if leftMap happens more than once, loop through the count and just add the answer multiple times
- *  to array. at the end, add everything in the array for the final answer.
- */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +8,9 @@ import java.util.List;
 
 public class day1{
     // value of final answer
-    static int finalAnswer = 0;
+    static int finalAnswerPartOne = 0;
+    static int finalAnswerPartTwo = 0;
+
     // part 1: using lists since the size of the list is changing and idk what sizes it would be.
     static List<Integer> leftList = new ArrayList<>();
     static List<Integer> rightList = new ArrayList<>();
@@ -52,12 +44,10 @@ public class day1{
         addHashElements(leftList, rightList);
 
         // calling function for day 1 part 1 calculations
-        // locationIdsPartOne(leftList, rightList);
+        locationIdsPartOne(leftList, rightList);
 
         // calling function for day 1 part 2 calculations
         locationsIdsPartTwo(leftMap, rightMap);
-        
-        // System.out.println(finalAnswer); 
     }
     // part 1
     private static void addArrayElements(String line){
@@ -79,8 +69,10 @@ public class day1{
             // this is stupid that i needed to get absolute value if it wasnt specified on the problem lol
             int diffyWiffy = Math.abs(right - left);
 
-            finalAnswer = finalAnswer + diffyWiffy;
+            finalAnswerPartOne = finalAnswerPartOne + diffyWiffy;
         }
+
+        System.out.println("part 1: " + finalAnswerPartOne); 
     }
 
     // part 2
@@ -107,10 +99,10 @@ public class day1{
 
                 for(int i = 0; i < repeatNums; i++){
                     int sum = num * repeatLeftNums;
-                    finalAnswer = finalAnswer + sum;
+                    finalAnswerPartTwo = finalAnswerPartTwo + sum;
                 }
             }
         }
-        System.out.println("answer: " + finalAnswer);
+        System.out.println("part 2 answer: " + finalAnswerPartTwo);
     }
 }
