@@ -8,11 +8,10 @@ import java.util.Arrays;
 public class day2{
     // final answers for both part one and two
     static int finalAnswerPartOne = 0;
-    static int finalAnswerPartTwo = 0;
 
     static List<Integer> lineOfNums = new ArrayList<>();
 
-    public static void processLinePartOne(String line){
+    public static void processLine(String line){
         int[] nums = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).toArray();        
 
         // adding nums array to list so i can clear the list after im done with calculation
@@ -20,7 +19,11 @@ public class day2{
             lineOfNums.add(n);
         }
 
-        // im going to use two pointers to compare the two numbers
+        // this is just to turn off/on after a single error in the list.
+        boolean justOnce = false;
+
+        // these are to check if the array was going to increasing or decreasing and looping
+        // through the list with the correct logic.
         int start = 0;
         int end = 1;
 
@@ -33,8 +36,15 @@ public class day2{
                     continue;
                 }
                 else{
-                    lineOfNums.clear();
-                    break;
+                    if(!justOnce){
+                        justOnce = true;
+                        start++;
+                        continue;
+                    }
+                    else{
+                        lineOfNums.clear();
+                        break;
+                    }
                 }
             }
         }
@@ -48,8 +58,15 @@ public class day2{
                     continue;
                 }
                 else{
-                    lineOfNums.clear();
-                    break;
+                    if(!justOnce){
+                        justOnce = true;
+                        start++;
+                        continue;
+                    }
+                    else{
+                        lineOfNums.clear();
+                        break;
+                    }
                 }
             }
         }
@@ -72,7 +89,7 @@ public class day2{
             String line = "";
 
             while((line = reader.readLine()) != null){
-                processLinePartOne(line);
+                processLine(line);
             }
         } catch(IOException e){
             System.out.println("Error reading file: " + e);
