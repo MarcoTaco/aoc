@@ -9,6 +9,8 @@ public class day4 {
 
         int rows = xmasGrid.length;
         int cols = xmasGrid[0].length;
+
+        
     }
     
     public static void main(String[] args){
