@@ -10,7 +10,42 @@ public class day4 {
         int rows = xmasGrid.length;
         int cols = xmasGrid[0].length;
 
-        
+        int[][] directions = {
+            {0, 1}, // right
+            {0, -1}, // left
+            {1, 0}, // down
+            {-1, 0}, // up
+            {1, 1}, // down right
+            {-1, -1}, // up left
+            {1, -1}, // down left
+            {-1, 1}, // up right
+        };
+
+        for(int r = 0; r < rows; r++){
+            for(int c = 0; c < cols; c++){
+                for(int[] multipleDir : directions){
+                    int directionRow = multipleDir[0];
+                    int directionCol = multipleDir[1];
+                    
+                    if(canFindWord(xmasGrid, xmas, r, c, directionRow, directionCol, rows, cols)){
+                        finalAnswerPartOne++;
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean canFindWord(char[][] xmasGrid, String xmas, int r, int c, int directionRow, int directionCol, int rows, int cols){
+        for(int i = 0; i < xmas.length(); i++){
+            int newRow = r + i * directionRow;
+            int newCol = c + i * directionCol;
+
+            if(newRow < 0 || newRow >= rows || newCol < 0 || newCol >= cols || xmasGrid[newRow][newCol] != xmas.charAt(i)){
+                return false;
+            }
+        }
+
+        return true;
     }
     
     public static void main(String[] args){
@@ -35,5 +70,7 @@ public class day4 {
 
         // call function for part 1 passing the 2d array
         findXmasWord(xmasListGrid);
+
+        System.out.println(finalAnswerPartOne);
     }
 }
