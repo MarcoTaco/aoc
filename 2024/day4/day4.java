@@ -3,6 +3,7 @@ import java.util.*;
 
 public class day4 {
     static int finalAnswerPartOne = 0;
+    static int finalAnswerPartTwo = 0;
 
     public static void findXmasWord(char[][] xmasGrid){
         String xmas = "XMAS";
@@ -47,7 +48,53 @@ public class day4 {
 
         return true;
     }
-    
+
+    public static void xmasFinderPartTwo(char[][] xmasGrid){
+        int rows = xmasGrid.length;
+        int cols = xmasGrid[0].length;
+
+        for(int r = 1; r < rows - 1; r++){
+            for(int c = 1; c < cols - 1; c++){
+                // this one is saying if:
+                // m m
+                //  a
+                // s s 
+                if(xmasGrid[r][c] == 'A' && xmasGrid[r - 1][c - 1] == 'M'
+                    && xmasGrid[r - 1][c + 1] == 'M'
+                    && xmasGrid[r + 1][c - 1] == 'S'
+                    && xmasGrid[r + 1][c + 1] == 'S'){
+                        finalAnswerPartTwo++;
+                }
+                // s m
+                //  a
+                // s m
+                else if(xmasGrid[r][c] == 'A' && xmasGrid[r + 1][c + 1] == 'M'
+                    && xmasGrid[r + 1][c - 1] == 'M'
+                    && xmasGrid[r - 1][c - 1] == 'S'
+                    && xmasGrid[r - 1][c + 1] == 'S'){
+                        finalAnswerPartTwo++;
+                }
+                // s  s
+                //  a
+                // m  m
+                else if(xmasGrid[r][c] == 'A' && xmasGrid[r - 1][c + 1] == 'S'
+                    && xmasGrid[r + 1][c + 1] == 'S'
+                    && xmasGrid[r - 1][c - 1] == 'M'
+                    && xmasGrid[r + 1][c - 1] == 'M'){
+                    finalAnswerPartTwo++;        
+                }
+                // m  s
+                //  a
+                // m  s
+                else if(xmasGrid[r][c] == 'A' && xmasGrid[r - 1][c - 1] == 'M'
+                    && xmasGrid[r - 1][c + 1] == 'M'
+                    && xmasGrid[r + 1][c - 1] == 'S'
+                    && xmasGrid[r + 1][c + 1] == 'S'){
+                    finalAnswerPartTwo++;        
+                }
+            }
+        }
+    }    
     public static void main(String[] args){
         String filePath = "./2024/day4/day4-input-test.txt";
         // String filePath = "./2024/day4/day4-input.txt";
@@ -69,8 +116,12 @@ public class day4 {
         char[][] xmasListGrid = xmasList.toArray(new char[0][]);
 
         // call function for part 1 passing the 2d array
-        findXmasWord(xmasListGrid);
+        // findXmasWord(xmasListGrid);
 
-        System.out.println(finalAnswerPartOne);
+        // System.out.println(finalAnswerPartOne);
+
+        xmasFinderPartTwo(xmasListGrid);
+
+        System.out.println(finalAnswerPartTwo);
     }
 }
