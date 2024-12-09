@@ -35,7 +35,22 @@ public class day5 {
         for(String comma : commas){
             pageToCheck.add(Integer.parseInt(comma.trim()));
         }
+
+        dayFivePartOne(pageNums, pageToCheck);
     }
+
+    public static void dayFivePartOne(List<List<Integer>>pageNums, List<Integer> pageToCheck){
+        int middle = pageToCheck.size() / 2;
+
+        for(List<Integer> pages : pageNums){
+            for(int page : pages){
+                
+            }
+        }
+         
+        finalAnswerPartOne += pageToCheck.get(middle);
+    }
+    
     public static void main(String[] args){
         // String filePath = "./2024/day5/day5-input.txt";
         String filePath = "./2024/day5/day5-input-test.txt";
@@ -60,5 +75,7 @@ public class day5 {
         }catch(IOException e){
             System.out.println("Error: " + e);
         }
+
+        // System.out.println("Final answer part one: " + finalAnswerPartOne);
     }
 }
