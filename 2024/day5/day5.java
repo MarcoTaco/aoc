@@ -36,18 +36,30 @@ public class day5 {
             pageToCheck.add(Integer.parseInt(comma.trim()));
         }
 
+        // after every second section gets added to a list, call this function to figure out the stuff
         dayFivePartOne(pageNums, pageToCheck);
     }
 
+    // im going to do a two pointer approach where i check if left pointer is greater than right so i know 
+    // whether to look at the first or second picture
     public static void dayFivePartOne(List<List<Integer>>pageNums, List<Integer> pageToCheck){
+        // getting the middle of the list that are we adding
         int middle = pageToCheck.size() / 2;
+        int mainPointer = 0;
+        int secondPointer = 0;
 
-        for(List<Integer> pages : pageNums){
-            for(int page : pages){
-                
+        while(mainPointer <= pageToCheck.size()){
+            // first for loop looks at first set of pages, second for loop looks at each page in the set
+            for(List<Integer> pages : pageNums){
+                for(int page : pages){
+                    if(mainPointer == secondPointer){
+                        secondPointer++;
+                    }
+
+                }
             }
         }
-         
+
         finalAnswerPartOne += pageToCheck.get(middle);
     }
     
