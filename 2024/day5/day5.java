@@ -47,20 +47,43 @@ public class day5 {
         int middle = pageToCheck.size() / 2;
         int mainPointer = 0;
         int secondPointer = 0;
+        int lengthOfPageToCheck = pageToCheck.size();
 
+        int count = 0;
+        
         while(mainPointer <= pageToCheck.size()){
+            if(mainPointer == secondPointer){
+                secondPointer++;
+            }
+
             // first for loop looks at first set of pages, second for loop looks at each page in the set
             for(List<Integer> pages : pageNums){
-                for(int page : pages){
-                    if(mainPointer == secondPointer){
-                        secondPointer++;
-                    }
-
+                if(mainPointer < secondPointer){
+                    // if(pageToCheck.get(mainPointer) == pages.get(0) && pageToCheck.get(secondPointer) == pages.get(1)){
+                    //     count++;
+                    //     break;
+                    // }
                 }
+                else{
+                    // if(pageToCheck.get(mainPointer) == pages.get(1) && pageToCheck.get(secondPointer) == pages.get(0)){
+                    //     count++; 
+                    //     break;
+                    // }
+                }
+                // System.out.println("get first num: " + pages.get(0));
+                // System.out.println("get second num: " + pages.get(1));
+            }
+            secondPointer++;
+
+            if(secondPointer >= lengthOfPageToCheck){
+                mainPointer++;
+                secondPointer = 0;
             }
         }
 
-        finalAnswerPartOne += pageToCheck.get(middle);
+        if(count == lengthOfPageToCheck){
+            finalAnswerPartOne += pageToCheck.get(middle);
+        }
     }
     
     public static void main(String[] args){
@@ -88,6 +111,6 @@ public class day5 {
             System.out.println("Error: " + e);
         }
 
-        // System.out.println("Final answer part one: " + finalAnswerPartOne);
+        System.out.println("Final answer part one: " + finalAnswerPartOne);
     }
 }
