@@ -3,7 +3,8 @@ import java.io.*;
 
 public class day5 {
     static int finalAnswerPartOne = 0;
-    // static int finalAnswerPartTwo = 0;
+    static int finalAnswerPartTwo = 0;
+
     static List<String> firstSection = new ArrayList<>();
     static List<List<Integer>> pageNums = new ArrayList<>();
     
@@ -47,45 +48,65 @@ public class day5 {
         int middle = pageToCheck.size() / 2;
         int mainPointer = 0;
         int secondPointer = 0;
-        int lengthOfPageToCheck = pageToCheck.size();
 
-        int count = 0;
-        
-        while(mainPointer <= pageToCheck.size()){
+        boolean goodToGo = false;;
+
+        while(mainPointer < pageToCheck.size()){
             if(mainPointer == secondPointer){
                 secondPointer++;
+                if(secondPointer == pageToCheck.size()){
+                    break;
+                }
             }
-
             // first for loop looks at first set of pages, second for loop looks at each page in the set
             for(List<Integer> pages : pageNums){
                 if(mainPointer < secondPointer){
-                    // if(pageToCheck.get(mainPointer) == pages.get(0) && pageToCheck.get(secondPointer) == pages.get(1)){
-                    //     count++;
-                    //     break;
-                    // }
+                    if(pageToCheck.get(mainPointer) == pages.get(0) && pageToCheck.get(secondPointer) == pages.get(1)){
+                        goodToGo = true;
+                        break;
+                    }
+                    else{
+                        goodToGo = false;
+                    }
                 }
                 else{
-                    // if(pageToCheck.get(mainPointer) == pages.get(1) && pageToCheck.get(secondPointer) == pages.get(0)){
-                    //     count++; 
-                    //     break;
-                    // }
+                    if(pageToCheck.get(mainPointer) == pages.get(1) && pageToCheck.get(secondPointer) == pages.get(0)){
+                        goodToGo = true;
+                        break;
+                    }
+                    else{
+                        goodToGo = false;
+                    }
                 }
-                // System.out.println("get first num: " + pages.get(0));
-                // System.out.println("get second num: " + pages.get(1));
             }
+            if(!goodToGo){
+                break;
+            }
+
             secondPointer++;
 
-            if(secondPointer >= lengthOfPageToCheck){
+            if(secondPointer >= pageToCheck.size()){
                 mainPointer++;
                 secondPointer = 0;
             }
         }
-
-        if(count == lengthOfPageToCheck){
+        
+        if(goodToGo){
             finalAnswerPartOne += pageToCheck.get(middle);
+        }
+        else{
+            day5PartTwo(pageToCheck);
         }
     }
     
+    public static void day5PartTwo(List<Integer> pageToCheck){
+        
+        
+        int middle = pageToCheck.size() / 2;
+
+        System.out.println(pageToCheck);
+        finalAnswerPartTwo += pageToCheck.get(middle);
+    }
     public static void main(String[] args){
         // String filePath = "./2024/day5/day5-input.txt";
         String filePath = "./2024/day5/day5-input-test.txt";
@@ -111,6 +132,7 @@ public class day5 {
             System.out.println("Error: " + e);
         }
 
-        System.out.println("Final answer part one: " + finalAnswerPartOne);
+        // System.out.println("Final answer part one: " + finalAnswerPartOne);
+        // System.out.println("Final answer part two: " + finalAnswerPartTwo);
     }
 }
